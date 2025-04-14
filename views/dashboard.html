@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - URL Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="URL Shortener Logo">
+            <span>URL Shortener</span>
+        </div>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Welcome, <span id="userName">User</span></h1>
+            <a href="shorten.html" class="btn-primary">Shorten New URL</a>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Total URLs</h3>
+                <p id="totalUrls">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Clicks</h3>
+                <p id="totalClicks">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Active URLs</h3>
+                <p id="activeUrls">0</p>
+            </div>
+        </div>
+
+        <div class="urls-section">
+            <h2>Your URLs</h2>
+            <div class="url-filters">
+                <input type="text" id="searchUrl" placeholder="Search URLs...">
+                <select id="sortBy">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="clicks">Most Clicks</option>
+                </select>
+            </div>
+
+            <div class="urls-list" id="urlsList">
+                <!-- URLs will be loaded here dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

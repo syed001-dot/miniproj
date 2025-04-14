@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - URL Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="URL Shortener Logo">
+            <span>URL Shortener</span>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <main class="features-container">
+        <h1>Our Features</h1>
+        
+        <section class="feature-section">
+            <div class="feature-card large">
+                <img src="images/feature-shorten.svg" alt="URL Shortening">
+                <div class="feature-content">
+                    <h2>URL Shortening</h2>
+                    <p>Transform long, complex URLs into short, memorable links that are easy to share and track.</p>
+                    <ul>
+                        <li>Custom URL aliases</li>
+                        <li>Expiration dates</li>
+                        <li>Password protection</li>
+                    </ul>
+                    <a href="shorten.html" class="btn-primary">Try It Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-card large">
+                <img src="images/feature-analytics.svg" alt="Analytics">
+                <div class="feature-content">
+                    <h2>Advanced Analytics</h2>
+                    <p>Get detailed insights about your shortened URLs with our comprehensive analytics dashboard.</p>
+                    <ul>
+                        <li>Click tracking</li>
+                        <li>Geographic data</li>
+                        <li>Device information</li>
+                        <li>Referrer tracking</li>
+                    </ul>
+                    <a href="analytics.html" class="btn-primary">View Analytics</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-card large">
+                <img src="images/feature-qr.svg" alt="QR Codes">
+                <div class="feature-content">
+                    <h2>QR Code Generation</h2>
+                    <p>Create QR codes for your shortened URLs to make them easily scannable on mobile devices.</p>
+                    <ul>
+                        <li>Custom QR code colors</li>
+                        <li>High-resolution downloads</li>
+                        <li>Multiple format support</li>
+                    </ul>
+                    <a href="qr-code.html" class="btn-primary">Generate QR Code</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-grid">
+            <div class="feature-card">
+                <img src="images/icon-api.svg" alt="API">
+                <h3>API Access</h3>
+                <p>Integrate our URL shortening service into your applications with our RESTful API.</p>
+            </div>
+            <div class="feature-card">
+                <img src="images/icon-bulk.svg" alt="Bulk Shortening">
+                <h3>Bulk Shortening</h3>
+                <p>Shorten multiple URLs at once with our bulk URL shortening feature.</p>
+            </div>
+            <div class="feature-card">
+                <img src="images/icon-custom.svg" alt="Custom Domains">
+                <h3>Custom Domains</h3>
+                <p>Use your own domain for shortened URLs to maintain brand consistency.</p>
+            </div>
+            <div class="feature-card">
+                <img src="images/icon-security.svg" alt="Security">
+                <h3>Advanced Security</h3>
+                <p>Protect your links with password protection and expiration dates.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/features.js"></script>
+</body>
+</html>

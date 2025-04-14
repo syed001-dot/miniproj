@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - URL Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="URL Shortener Logo">
+            <span>URL Shortener</span>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <main class="analytics-container">
+        <div class="analytics-header">
+            <h1>URL Analytics</h1>
+            <div class="analytics-filters">
+                <select id="timeRange">
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                    <option value="all">All Time</option>
+                </select>
+                <select id="urlSelect">
+                    <option value="">Select URL</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="analytics-stats">
+            <div class="stat-card">
+                <h3>Total Clicks</h3>
+                <p id="totalClicks">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Unique Visitors</h3>
+                <p id="uniqueVisitors">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Average Clicks/Day</h3>
+                <p id="avgClicks">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Conversion Rate</h3>
+                <p id="conversionRate">0%</p>
+            </div>
+        </div>
+
+        <div class="analytics-charts">
+            <div class="chart-container">
+                <h2>Clicks Over Time</h2>
+                <canvas id="clicksChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Top Countries</h2>
+                <canvas id="countriesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Device Distribution</h2>
+                <canvas id="devicesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Browser Usage</h2>
+                <canvas id="browsersChart"></canvas>
+            </div>
+        </div>
+
+        <div class="analytics-table">
+            <h2>Recent Activity</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP Address</th>
+                            <th>Country</th>
+                            <th>Device</th>
+                            <th>Browser</th>
+                            <th>Referrer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityTable">
+                        <!-- Activity data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>

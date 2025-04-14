@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Shortico</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <script src="js/auth.js" defer></script>
+    <script src="js/analytics.js" defer></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.svg" alt="Shortico Logo" class="logo-img">
+            <h1 class="logo-text">Shortico</h1>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Analytics Content -->
+    <div class="container">
+        <div class="section-header">
+            <h2>URL Analytics</h2>
+            <p class="section-subtitle">Track and analyze your shortened URLs</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="analytics-filters">
+            <div class="form-group">
+                <label for="timeRange">Time Range</label>
+                <select id="timeRange">
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                    <option value="90d">Last 90 Days</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="urlFilter">URL Filter</label>
+                <select id="urlFilter">
+                    <option value="all">All URLs</option>
+                    <!-- URLs will be dynamically added here -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-mouse-pointer"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Clicks</h3>
+                    <p class="stat-number" id="totalClicks">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Unique Visitors</h3>
+                    <p class="stat-number" id="uniqueVisitors">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Average Clicks/Day</h3>
+                    <p class="stat-number" id="avgClicksPerDay">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Conversion Rate</h3>
+                    <p class="stat-number" id="conversionRate">0%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Clicks Over Time</h3>
+                <div class="chart-container" id="clicksChart">
+                    <!-- Chart will be rendered here -->
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Top Countries</h3>
+                <div class="chart-container" id="countriesChart">
+                    <!-- Chart will be rendered here -->
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Device Distribution</h3>
+                <div class="chart-container" id="devicesChart">
+                    <!-- Chart will be rendered here -->
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Browser Usage</h3>
+                <div class="chart-container" id="browsersChart">
+                    <!-- Chart will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP Address</th>
+                            <th>Country</th>
+                            <th>Device</th>
+                            <th>Browser</th>
+                            <th>Referrer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityTableBody">
+                        <!-- Activity data will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/logo.svg" alt="Shortico Logo">
+                        <h3>Shortico</h3>
+                    </div>
+                    <p>Smart URL shortener for modern businesses and individuals.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="shorten.html">Shorten URL</a></li>
+                        <li><a href="features.html">Features</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@shortico.com</li>
+                        <li><i class="fas fa-question-circle"></i> Help Center</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shortico. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

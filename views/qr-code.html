@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code - URL Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="URL Shortener Logo">
+            <span>URL Shortener</span>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <main class="qr-container">
+        <h1>Generate QR Code</h1>
+        
+        <div class="qr-form-container">
+            <form id="qrForm" class="qr-form">
+                <div class="form-group">
+                    <label for="url">Enter URL to generate QR code</label>
+                    <input type="url" id="url" name="url" placeholder="https://short.url/your-url" required>
+                </div>
+
+                <div class="qr-options">
+                    <div class="form-group">
+                        <label for="qrSize">QR Code Size</label>
+                        <select id="qrSize" name="qrSize">
+                            <option value="200">200x200</option>
+                            <option value="300">300x300</option>
+                            <option value="400">400x400</option>
+                            <option value="500">500x500</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrColor">QR Code Color</label>
+                        <input type="color" id="qrColor" name="qrColor" value="#000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrBgColor">Background Color</label>
+                        <input type="color" id="qrBgColor" name="qrBgColor" value="#ffffff">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrFormat">Download Format</label>
+                        <select id="qrFormat" name="qrFormat">
+                            <option value="png">PNG</option>
+                            <option value="svg">SVG</option>
+                            <option value="jpeg">JPEG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Generate QR Code</button>
+            </form>
+        </div>
+
+        <div class="qr-result-container" id="qrResultContainer" style="display: none;">
+            <h2>Your QR Code</h2>
+            <div class="qr-result-card">
+                <div class="qr-code-display">
+                    <img id="qrCodeImage" src="" alt="QR Code">
+                </div>
+                <div class="qr-actions">
+                    <button id="downloadQR" class="btn-primary">Download QR Code</button>
+                    <a href="dashboard.html" class="btn-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 URL Shortener. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/qr.js"></script>
+</body>
+</html>

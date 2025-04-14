@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Shortico</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <script src="js/auth.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.svg" alt="Shortico Logo" class="logo-img">
+            <h1 class="logo-text">Shortico</h1>
+        </div>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <div class="dashboard-header">
+            <h2>Welcome to Your Dashboard</h2>
+            <p>Manage your shortened URLs and track their performance</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total URLs</h3>
+                    <p class="stat-number" id="totalUrls">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-mouse-pointer"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Clicks</h3>
+                    <p class="stat-number" id="totalClicks">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Active URLs</h3>
+                    <p class="stat-number" id="activeUrls">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- URL Management -->
+        <div class="url-management">
+            <div class="section-header">
+                <h2>Your URLs</h2>
+                <div class="url-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="urlSearch" placeholder="Search URLs...">
+                    </div>
+                    <select id="urlSort">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="clicks">Most Clicks</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="url-list" id="urlList">
+                <!-- URLs will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/logo.svg" alt="Shortico Logo">
+                        <h3>Shortico</h3>
+                    </div>
+                    <p>Smart URL shortener for modern businesses and individuals.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="shorten.html">Shorten URL</a></li>
+                        <li><a href="analytics.html">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@shortico.com</li>
+                        <li><i class="fas fa-question-circle"></i> Help Center</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shortico. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

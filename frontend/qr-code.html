@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code - Shortico</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <script src="js/auth.js" defer></script>
+    <script src="js/qr-code.js" defer></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.svg" alt="Shortico Logo" class="logo-img">
+            <h1 class="logo-text">Shortico</h1>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="shorten.html">Shorten URL</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- QR Code Generator -->
+    <div class="container">
+        <div class="section-header">
+            <h2>Generate QR Code</h2>
+            <p class="section-subtitle">Create a QR code for your shortened URL</p>
+        </div>
+
+        <div class="qr-form">
+            <div class="form-group">
+                <label for="urlForQR">Enter your shortened URL</label>
+                <div class="input-group">
+                    <i class="fas fa-link"></i>
+                    <input type="url" id="urlForQR" placeholder="https://shortico.com/your-url" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="qrSize">QR Code Size</label>
+                <select id="qrSize">
+                    <option value="200">200x200</option>
+                    <option value="300">300x300</option>
+                    <option value="400">400x400</option>
+                    <option value="500">500x500</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="qrColor">QR Code Color</label>
+                <input type="color" id="qrColor" value="#4F46E5">
+            </div>
+
+            <div class="form-group">
+                <label for="qrBgColor">Background Color</label>
+                <input type="color" id="qrBgColor" value="#FFFFFF">
+            </div>
+
+            <div class="form-group">
+                <label for="qrFormat">Download Format</label>
+                <select id="qrFormat">
+                    <option value="png">PNG</option>
+                    <option value="svg">SVG</option>
+                    <option value="jpg">JPG</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" id="generateQRBtn">
+                <i class="fas fa-qrcode"></i> Generate QR Code
+            </button>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-container hidden" id="qrResultContainer">
+            <div class="result-header">
+                <h3>Your QR Code</h3>
+                <p>Download and share your QR code</p>
+            </div>
+            <div class="result-content">
+                <div class="qr-code-container">
+                    <img id="qrCodeImage" alt="Generated QR Code">
+                </div>
+                <div class="result-actions">
+                    <button class="btn-primary" id="downloadQRBtn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <a href="dashboard.html" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/logo.svg" alt="Shortico Logo">
+                        <h3>Shortico</h3>
+                    </div>
+                    <p>Smart URL shortener for modern businesses and individuals.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="shorten.html">Shorten URL</a></li>
+                        <li><a href="analytics.html">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@shortico.com</li>
+                        <li><i class="fas fa-question-circle"></i> Help Center</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shortico. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
