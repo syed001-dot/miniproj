@@ -1,16 +1,13 @@
 // Handle URL shortening form submission
-document.getElementById('shortenForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
+async function handleShorten(event) {
+    event.preventDefault();
 
     const originalUrl = document.getElementById('originalUrl').value;
-    const customAlias = document.getElementById('customAlias').value;
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const expiresAt = document.getElementById('expiresAt').value;
-    const isActive = document.getElementById('isActive').checked;
+    const title = document.getElementById('title')?.value;
+    const description = document.getElementById('description')?.value;
 
     try {
-        const response = await fetch('/api/urls', {
+        const response = await fetch('/api/urls/shorten', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,77 +15,90 @@ document.getElementById('shortenForm')?.addEventListener('submit', async (e) => 
             },
             body: JSON.stringify({
                 originalUrl,
-                customAlias,
                 title,
-                description,
-                expiresAt: expiresAt ? new Date(expiresAt).toISOString() : null,
-                isActive
+                description
             })
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-            displayShortenedUrl(data);
-        } else {
-            showError(data.message || 'Failed to shorten URL');
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to shorten URL');
         }
+
+        const url = await response.json();
+        displayResult(url);
     } catch (error) {
-        showError('An error occurred while shortening the URL');
+        showError(error.message);
     }
-});
-
-// Display shortened URL result
-function displayShortenedUrl(url) {
-    const resultContainer = document.getElementById('resultContainer');
-    const shortenedUrlInput = document.getElementById('shortenedUrl');
-    const viewAnalyticsLink = document.getElementById('viewAnalytics');
-    const generateQRLink = document.getElementById('generateQR');
-
-    shortenedUrlInput.value = url.shortUrl;
-    viewAnalyticsLink.href = `analytics.html?url=${url._id}`;
-    generateQRLink.href = `qr-code.html?url=${url._id}`;
-
-    resultContainer.style.display = 'block';
-    resultContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Copy shortened URL to clipboard
-function copyToClipboard() {
-    const shortenedUrl = document.getElementById('shortenedUrl');
-    shortenedUrl.select();
-    document.execCommand('copy');
+// Display shortened URL result
+function displayResult(url) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        <div class="success-message">
+            <h3>URL Shortened Successfully!</h3>
+            <div class="url-details">
+                <p><strong>Short URL:</strong> 
+                    <span id="shortUrl">${window.location.origin}/${url.shortUrl}</span>
+                    <button onclick="copyToClipboard('${window.location.origin}/${url.shortUrl}')" class="btn btn-secondary">
+                        Copy
+                    </button>
+                </p>
+                <p><strong>Original URL:</strong> ${url.originalUrl}</p>
+            </div>
+            <div class="action-buttons">
+                <a href="/dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+                <button onclick="document.getElementById('shortenForm').reset(); resultDiv.innerHTML = '';" class="btn btn-secondary">
+                    Shorten Another URL
+                </button>
+            </div>
+        </div>
+    `;
+}
 
-    const copyButton = document.querySelector('.btn-copy');
-    const originalText = copyButton.textContent;
-    copyButton.textContent = 'Copied!';
-    
-    setTimeout(() => {
-        copyButton.textContent = originalText;
-    }, 2000);
+// Copy URL to clipboard
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        showMessage('URL copied to clipboard!');
+    } catch (error) {
+        showError('Failed to copy URL');
+    }
+}
+
+// Show success message
+function showMessage(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast success';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
 }
 
 // Show error message
 function showError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    
-    const form = document.querySelector('form');
-    form.insertBefore(errorDiv, form.firstChild);
-    
-    setTimeout(() => {
-        errorDiv.remove();
-    }, 3000);
+    const toast = document.createElement('div');
+    toast.className = 'toast error';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Get auth token from localStorage
+function getAuthToken() {
+    return localStorage.getItem('token');
 }
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', () => {
-    // Set minimum date for expiration date input
-    const expiresAtInput = document.getElementById('expiresAt');
-    if (expiresAtInput) {
-        const today = new Date();
-        const minDate = today.toISOString().split('T')[0];
-        expiresAtInput.min = minDate;
+    const form = document.getElementById('shortenForm');
+    if (form) {
+        form.addEventListener('submit', handleShorten);
     }
-}); 
+
+    // Redirect if not logged in
+    if (!getAuthToken()) {
+        window.location.href = '/login.html';
+    }
+});

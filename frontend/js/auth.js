@@ -2,6 +2,63 @@
 const TOKEN_KEY = 'url_shortener_token';
 const USER_KEY = 'url_shortener_user';
 
+// Handle login
+async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Login failed');
+        }
+
+        const { token, user } = await response.json();
+        saveAuthData(token, user);
+        window.location.href = '/dashboard.html';
+    } catch (error) {
+        showError(error.message);
+    }
+}
+
+// Handle registration
+async function handleRegister(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Registration failed');
+        }
+
+        const { token, user } = await response.json();
+        saveAuthData(token, user);
+        window.location.href = '/dashboard.html';
+    } catch (error) {
+        showError(error.message);
+    }
+}
+
 // Check if user is logged in
 function isLoggedIn() {
     return localStorage.getItem(TOKEN_KEY) !== null;
@@ -30,122 +87,44 @@ function clearAuthData() {
     localStorage.removeItem(USER_KEY);
 }
 
-// Handle login form submission
-document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const remember = document.getElementById('remember').checked;
-
-    try {
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            saveAuthData(data.token, data.user);
-            window.location.href = 'dashboard.html';
-        } else {
-            showError(data.message || 'Login failed');
-        }
-    } catch (error) {
-        showError('An error occurred during login');
-    }
-});
-
-// Handle registration form submission
-document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        showError('Passwords do not match');
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            saveAuthData(data.token, data.user);
-            window.location.href = 'dashboard.html';
-        } else {
-            showError(data.message || 'Registration failed');
-        }
-    } catch (error) {
-        showError('An error occurred during registration');
-    }
-});
-
 // Handle logout
-document.getElementById('logout')?.addEventListener('click', (e) => {
-    e.preventDefault();
+function handleLogout() {
     clearAuthData();
-    window.location.href = 'index.html';
-});
+    window.location.href = '/login.html';
+}
 
 // Show error message
 function showError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    
-    const form = document.querySelector('form');
-    form.insertBefore(errorDiv, form.firstChild);
-    
-    setTimeout(() => {
-        errorDiv.remove();
-    }, 3000);
-}
-
-// Protect routes that require authentication
-function protectRoute() {
-    if (!isLoggedIn()) {
-        window.location.href = 'login.html';
-        return;
-    }
-
-    // Update UI with user info
-    const userName = document.getElementById('userName');
-    if (userName) {
-        const user = getCurrentUser();
-        userName.textContent = user.name;
+    const errorDiv = document.getElementById('error-message');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        setTimeout(() => {
+            errorDiv.style.display = 'none';
+        }, 3000);
     }
 }
 
-// Initialize auth state
+// Initialize auth forms
 document.addEventListener('DOMContentLoaded', () => {
-    // Protect authenticated routes
-    if (window.location.pathname.includes('dashboard.html') || 
-        window.location.pathname.includes('shorten.html') ||
-        window.location.pathname.includes('analytics.html') ||
-        window.location.pathname.includes('qr-code.html')) {
-        protectRoute();
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
     }
 
-    // Redirect authenticated users away from auth pages
-    if ((window.location.pathname.includes('login.html') || 
-         window.location.pathname.includes('register.html')) && 
-        isLoggedIn()) {
-        window.location.href = 'dashboard.html';
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
     }
-}); 
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
+
+    // Redirect if already logged in
+    if (isLoggedIn() && (window.location.pathname === '/login.html' || window.location.pathname === '/register.html')) {
+        window.location.href = '/dashboard.html';
+    }
+});

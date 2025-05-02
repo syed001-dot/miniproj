@@ -1,48 +1,36 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const analyticsSchema = new mongoose.Schema({
+const Analytics = sequelize.define('Analytics', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     urlId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Url',
-        required: true
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    clickTime: {
-        type: Date,
-        default: Date.now
-    },
-    ipAddress: {
-        type: String
+    visitorIp: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     userAgent: {
-        type: String
+        type: DataTypes.STRING,
+        allowNull: true
     },
     referrer: {
-        type: String
+        type: DataTypes.STRING,
+        allowNull: true
     },
-    country: {
-        type: String
-    },
-    city: {
-        type: String
-    },
-    device: {
-        type: String,
-        enum: ['desktop', 'mobile', 'tablet']
-    },
-    browser: {
-        type: String
-    },
-    os: {
-        type: String
+    timestamp: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
+}, {
+    timestamps: true,
+    underscored: true,
+    tableName: 'analytics'
 });
 
-// Indexes for faster queries
-analyticsSchema.index({ urlId: 1 });
-analyticsSchema.index({ clickTime: 1 });
-analyticsSchema.index({ country: 1 });
-analyticsSchema.index({ device: 1 });
-
-const Analytics = mongoose.model('Analytics', analyticsSchema);
-
-module.exports = Analytics; 
+module.exports = Analytics;

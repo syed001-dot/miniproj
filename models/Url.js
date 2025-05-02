@@ -1,53 +1,42 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
 const shortid = require('shortid');
+const sequelize = require('../config/database');
 
-const urlSchema = new mongoose.Schema({
+const Url = sequelize.define('Url', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     originalUrl: {
-        type: String,
-        required: true,
-        trim: true
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     shortUrl: {
-        type: String,
-        required: true,
+        type: DataTypes.STRING,
+        allowNull: false,
         unique: true,
-        default: shortid.generate
+        defaultValue: () => shortid.generate()
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     clicks: {
-        type: Number,
-        default: 0
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
     expiresAt: {
-        type: Date
-    },
-    isActive: {
-        type: Boolean,
-        default: true
-    },
-    title: {
-        type: String,
-        trim: true
-    },
-    description: {
-        type: String,
-        trim: true
+        type: DataTypes.DATE,
+        allowNull: true
     }
+}, {
+    timestamps: true,
+    underscored: true,
+    tableName: 'urls'
 });
 
-// Index for faster queries
-urlSchema.index({ shortUrl: 1 });
-urlSchema.index({ userId: 1 });
-urlSchema.index({ createdAt: 1 });
-
-const Url = mongoose.model('Url', urlSchema);
-
-module.exports = Url; 
+module.exports = Url;
